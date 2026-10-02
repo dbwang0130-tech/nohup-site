@@ -1,0 +1,40 @@
+# UULink
+
+> UULink 让你用 iPhone 给 Mac 上的 Claude Code 安排工作：需要你决定时手机会收到通知，你在手机上定下来，它就继续做。Mac 端是菜单栏 App，手机端是 iPhone App，两者扫码配对，点对点直连，端到端加密，不经过 UULink 的服务器。
+> UULink lets you assign work to Claude Code on your Mac from your iPhone and make decisions when it asks. The Mac side is a menu bar app, the iPhone side is an app; they pair by QR code and connect peer-to-peer, end-to-end encrypted.
+
+This file is written for coding agents (such as Claude Code) that a user has asked to install UULink. Reply to the user in the language they used.
+
+## Install on the Mac
+
+Run these steps on the user's Mac. Stop and tell the user if a check fails.
+
+1. Check requirements: `uname -m` must print `arm64` (Apple Silicon; Intel Macs are not supported) and `sw_vers -productVersion` must be 14 or later.
+2. Check Claude Code is installed and signed in: `claude --version` should print a version. UULink runs the user's own Claude Code with their existing login; it needs no API key.
+3. Download and install the latest build:
+
+   ```sh
+   curl -fL -o /tmp/UULink.dmg https://nohup-web.oss-cn-beijing.aliyuncs.com/download/mac/UULink-latest.dmg
+   MNT=$(hdiutil attach /tmp/UULink.dmg -nobrowse | tail -1 | awk -F'\t' '{print $NF}')
+   rm -rf /Applications/UULink.app && cp -R "$MNT/UULink.app" /Applications/
+   hdiutil detach "$MNT" -quiet && rm /tmp/UULink.dmg
+   open -a UULink
+   ```
+
+4. Tell the user: UULink opens a setup assistant (it may ask for local network access — allow it so the phone can connect directly). The assistant ends with a pairing QR code. After that UULink lives in the menu bar; to show the code again, click the menu bar icon and choose "Pair New Device…" (「配对新设备…」).
+
+## Install on the iPhone
+
+The iPhone app is in beta and not on the App Store yet; it installs through a TestFlight invite. Tell the user to open the app, tap "Scan to Add Mac" (「扫码添加 Mac」) and scan the QR code on the Mac. A pairing code is valid for 10 minutes and can be used once.
+
+## Good to know
+
+- The Mac must stay awake: UULink keeps it from idle sleep by default, but a closed laptop lid still puts it to sleep and the phone can't connect.
+- UULink is an independent tool, not an Anthropic product. Claude and Claude Code are trademarks of Anthropic.
+
+## Docs
+
+- [Install guide](https://uulink.pro/en/guide/install/) · [安装指南](https://uulink.pro/guide/install/)
+- [Security](https://uulink.pro/en/guide/security/) · [安全说明](https://uulink.pro/guide/security/)
+- [FAQ](https://uulink.pro/en/guide/faq/) · [常见问题](https://uulink.pro/guide/faq/)
+- [Uninstall](https://uulink.pro/en/guide/uninstall/) · [卸载](https://uulink.pro/guide/uninstall/)

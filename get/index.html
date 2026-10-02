@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>下载 UULink</title><script>(function(){const phoneUrl = "/guide/install/";
+const macUrl = "https://nohup-web.oss-cn-beijing.aliyuncs.com/download/mac/UULink-latest.dmg";
+const fallback = "/guide/install/";
+
+			const ua = navigator.userAgent;
+			const isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+			const isMac = !isIOS && /Macintosh/.test(ua);
+			location.replace(isIOS ? phoneUrl : isMac ? macUrl : fallback);
+		})();</script><script type="module" src="/_astro/page.Dwipeu-R.js"></script></head><body><p><a href="/guide/install/">iPhone 版</a> · <a href="https://nohup-web.oss-cn-beijing.aliyuncs.com/download/mac/UULink-latest.dmg">Mac 版</a> · <a href="/guide/install/">安装指南</a></p></body></html>
