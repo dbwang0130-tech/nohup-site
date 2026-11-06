@@ -1,0 +1,43 @@
+# UULink
+
+> UULink 让你用 iPhone 远程使用 Mac 上的 AI 编程助手，支持 Claude Code、Codex、Cursor、opencode、Qoder CLI、DeepSeek Harness、Pi 和 Antigravity，新建会话时选择。需要你决定时手机会收到通知，在手机上批准后任务继续。手机和 Mac 全程端到端加密，不经过 UULink 的服务器。
+> UULink lets you use the coding agents on your Mac from your iPhone. It supports Claude Code, Codex, Cursor, opencode, Qoder CLI, DeepSeek Harness, Pi and Antigravity; you choose one when you start a session. When a decision is needed your phone gets a notification, and the task continues once you approve on the phone. Your phone and Mac are end-to-end encrypted, and nothing goes through UULink's servers.
+
+This file is written for coding agents (such as Claude Code or Codex) that a user has asked to install UULink. Reply to the user in the language they used.
+
+## Install on the Mac
+
+Run these steps on the user's Mac. Stop and tell the user if a check fails.
+
+1. Check requirements: `uname -m` must print `arm64` (Apple Silicon; Intel Macs are not supported) and `sw_vers -productVersion` must be 14 or later.
+2. Check that at least one supported agent is installed and signed in, for example `claude --version` (Claude Code) or `codex --version` (Codex) prints a version. UULink runs the user's own agents with their existing logins or API keys and charges nothing extra for them. The setup assistant detects Claude Code and Codex automatically; other agents (Cursor, opencode, Qoder CLI, DeepSeek Harness, Pi, Antigravity) are added later in UULink's Settings › Agent. Each agent must be installed by the user first; when one isn't detected, UULink shows how to install it and a link to its website. Per-agent instructions: https://uulink.pro/en/guide/agents/
+3. Download and install the latest build:
+
+   ```sh
+   curl -fL -o /tmp/UULink.dmg https://nohup-web.oss-cn-beijing.aliyuncs.com/download/mac/UULink-latest.dmg
+   MNT=$(hdiutil attach /tmp/UULink.dmg -nobrowse | tail -1 | awk -F'\t' '{print $NF}')
+   rm -rf /Applications/UULink.app && cp -R "$MNT/UULink.app" /Applications/
+   hdiutil detach "$MNT" -quiet && rm /tmp/UULink.dmg
+   open -a UULink
+   ```
+
+4. Tell the user: UULink opens a setup assistant (AI assistant → system permissions → control the desktop, optional → pair iPhone; it may ask for local network access — allow it so the phone can connect directly). The assistant ends with a pairing QR code. After that UULink lives in the menu bar; to show the code again, click the menu bar icon and choose "Pair New Device…" (「配对新设备…」).
+
+## Install on the iPhone
+
+The iPhone app is on the App Store: search for "UULink" or open https://apps.apple.com/app/id6819126745. Tell the user to open the app, tap "Scan Code to Add Mac" (「扫描二维码添加 Mac」) and scan the QR code on the Mac. A pairing code is valid for 10 minutes and can be used once.
+
+## Good to know
+
+- The Mac must stay awake: UULink keeps it from idle sleep by default, but a closed laptop lid still puts it to sleep and the phone can't connect.
+- New sessions are started on the iPhone, where the user picks which agent to use. Sessions started in the Mac terminal also show up for most agents.
+- UULink is an independent tool, not affiliated with Anthropic, OpenAI, Google or any other agent provider. Claude and Claude Code are trademarks of Anthropic; other product names belong to their respective owners.
+
+## Docs
+
+- [Install guide](https://uulink.pro/en/guide/install/) · [安装指南](https://uulink.pro/guide/install/)
+- [Supported agents](https://uulink.pro/en/guide/agents/) · [支持的 AI 助手](https://uulink.pro/guide/agents/)
+- [Control the Mac desktop](https://uulink.pro/en/guide/computer-use/) · [控制 Mac 桌面](https://uulink.pro/guide/computer-use/)
+- [Security](https://uulink.pro/en/guide/security/) · [安全说明](https://uulink.pro/guide/security/)
+- [FAQ](https://uulink.pro/en/guide/faq/) · [常见问题](https://uulink.pro/guide/faq/)
+- [Uninstall](https://uulink.pro/en/guide/uninstall/) · [卸载](https://uulink.pro/guide/uninstall/)
